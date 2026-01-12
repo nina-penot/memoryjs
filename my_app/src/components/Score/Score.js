@@ -9,7 +9,10 @@ function Score(props) {
     }
 
     return (
-        <p onClick={click}> Mon score est de {score} .</p>
+        <>
+            <p> Mon score est de {score} .</p>
+            <button onClick={click}>Click pour + score</button >
+        </>
     )
 
 }
