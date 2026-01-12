@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Button from './components/Button/Button';
 import Score from './components/Score/Score';
+import pokemon from './data/pokemons'
 
 // function App() {
 //   return (
@@ -25,10 +26,12 @@ import Score from './components/Score/Score';
 // }
 
 function App() {
+  console.log(pokemon)
   return (
     <div className='App'>
-      <Button text="bonjour." />
-      <Score />
+      <Button text="bonjour." class="red btn" />
+      <Button text="blue" class="blue btn" />
+      <Score class="green" />
     </div>
   )
 }

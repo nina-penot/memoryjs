@@ -2,7 +2,7 @@ import React from "react";
 
 function Button(props) {
     return (
-        <button className="App-link">{props.text}</button>
+        <button className={props.class}>{props.text}</button>
     )
 }
 

@@ -5,13 +5,15 @@ function Score(props) {
     const [score, setScore] = useState(0);
 
     function click() {
-        setScore(score + 1);
+        if (score < 15) {
+            setScore(score + 1);
+        }
     }
 
     return (
         <>
             <p> Mon score est de {score} .</p>
-            <button onClick={click}>Click pour + score</button >
+            <button className={"btn " + props.class} onClick={click}>Click pour + score</button >
         </>
     )
 

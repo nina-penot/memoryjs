@@ -32,7 +32,38 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Funny btn coloring */
+
+.btn {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(130%);
+}
+
+.btn:active {
+  filter: brightness(80%);
+}
+
+.red {
+  background-color: rgb(255, 77, 77);
+}
+
+.blue {
+  background-color: rgb(97, 182, 251);
+}
+
+.green {
+  background-color: rgb(40, 254, 79);
 }

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Card(props) {
+
+    const [flipped, set_flip] = useState(false);
 
     const info = {
         img: "insert img here",
@@ -10,9 +12,13 @@ function Card(props) {
 
     function click() {
         //flip card
+        if (flipped == false) {
+            set_flip(flipped = true);
+        }
     }
 
     function flip_back() {
+        //if flipped true and not win....
         //card flips back to show back
     }
 }
