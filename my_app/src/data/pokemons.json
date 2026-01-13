@@ -1,0 +1,110 @@
+[
+    {
+        "id": 25,
+        "name": "pikachu",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+        "type": "electric"
+    },
+    {
+        "id": 1,
+        "name": "bulbasaur",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+        "type": "grass"
+    },
+    {
+        "id": 4,
+        "name": "charmander",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+        "type": "fire"
+    },
+    {
+        "id": 7,
+        "name": "squirtle",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+        "type": "water"
+    },
+    {
+        "id": 16,
+        "name": "pidgey",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/16.png",
+        "type": "normal"
+    },
+    {
+        "id": 147,
+        "name": "dratini",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/147.png",
+        "type": "dragon"
+    },
+    {
+        "id": 10,
+        "name": "caterpie",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10.png",
+        "type": "bug"
+    },
+    {
+        "id": 261,
+        "name": "poochyena",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/261.png",
+        "type": "dark"
+    },
+    {
+        "id": 35,
+        "name": "clefairy",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png",
+        "type": "fairy"
+    },
+    {
+        "id": 56,
+        "name": "mankey",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/56.png",
+        "type": "fighting"
+    },
+    {
+        "id": 200,
+        "name": "misdreavus",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/200.png",
+        "type": "ghost"
+    },
+    {
+        "id": 50,
+        "name": "diglett",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/50.png",
+        "type": "ground"
+    },
+    {
+        "id": 582,
+        "name": "vanillite",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/582.png",
+        "type": "ice"
+    },
+    {
+        "id": 143,
+        "name": "snorlax",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
+        "type": "normal"
+    },
+    {
+        "id": 23,
+        "name": "ekans",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/23.png",
+        "type": "poison"
+    },
+    {
+        "id": 63,
+        "name": "abra",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/63.png",
+        "type": "psychic"
+    },
+    {
+        "id": 524,
+        "name": "roggenrola",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/524.png",
+        "type": "rock"
+    },
+    {
+        "id": 599,
+        "name": "klink",
+        "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/599.png",
+        "type": "steel"
+    }
+]
