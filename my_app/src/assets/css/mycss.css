@@ -1,6 +1,6 @@
 :root {
-    --card_width: 200px;
-    --card_height: 300px;
+    --card_width: 210px;
+    --card_height: 310px;
 }
 
 /* Funny btn coloring */
@@ -41,12 +41,35 @@
     border-radius: 10px;
     background-color: rgb(192, 192, 147);
     overflow: hidden;
-    box-shadow: 0px 0px 0px 3px #FFFFFF, 0px 0px 0px 4px #000000;
+    /* box-shadow: inset 0px 0px 0px 1px #000000, inset 0px 0px 0px 4px #ffffff, inset 0px 0px 0px 5px #000000; */
+    box-shadow: 0px 0px 0px 1px #000000, 0px 0px 0px 4px #ffffff, 0px 0px 0px 5px #000000;
+    margin: 5px;
 }
 
 .card_front_img {
     width: calc(var(--card_width) - 20px);
     height: calc(var(--card_width) - 20px);
-    background-color: bisque;
+    /* margin-top: 10px; */
+    /* background-color: bisque; */
     justify-self: center;
+}
+
+.card_front_imgback {
+    background-color: #ffffff;
+    border-radius: 100%;
+    width: calc(var(--card_width) - 20px);
+    height: calc(var(--card_width) - 20px);
+    justify-self: center;
+    margin-top: 10px;
+}
+
+.card_front_name {
+    width: calc(var(--card_width) - 20px);
+    height: 60px;
+    background-color: #ffffff;
+    justify-self: center;
+    font-size: 20px;
+    text-align: center;
+    align-content: center;
+    margin: 20px 0 auto 0;
 }
