@@ -1,0 +1,52 @@
+:root {
+    --card_width: 200px;
+    --card_height: 300px;
+}
+
+/* Funny btn coloring */
+
+.btn {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    filter: brightness(130%);
+}
+
+.btn:active {
+    filter: brightness(80%);
+}
+
+.red {
+    background-color: rgb(255, 77, 77);
+}
+
+.blue {
+    background-color: rgb(97, 182, 251);
+}
+
+.green {
+    background-color: rgb(40, 254, 79);
+}
+
+/* CARD */
+
+.card_cont {
+    width: var(--card_width);
+    height: var(--card_height);
+    border-radius: 10px;
+    background-color: rgb(192, 192, 147);
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 3px #FFFFFF, 0px 0px 0px 4px #000000;
+}
+
+.card_front_img {
+    width: calc(var(--card_width) - 20px);
+    height: calc(var(--card_width) - 20px);
+    background-color: bisque;
+    justify-self: center;
+}

@@ -21,4 +21,12 @@ function Card(props) {
         //if flipped true and not win....
         //card flips back to show back
     }
+
+    return (
+        <div className="card_cont">
+            <div className="card_front_img"></div>
+        </div>
+    )
 }
+
+export default Card;

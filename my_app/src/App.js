@@ -1,8 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import './assets/css/mycss.css'
 import Button from './components/Button/Button';
 import Score from './components/Score/Score';
-import FetchData from './data/pokemons'
+import Card from './components/Card/Card';
+// import FetchData from './data/pokemons'
 
 // function App() {
 //   return (
@@ -32,7 +34,7 @@ function App() {
       <Button text="bonjour." class="red btn" />
       <Button text="blue" class="blue btn" />
       <Score class="green" />
-      <FetchData />
+      <Card />
     </div>
   )
 }
