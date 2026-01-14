@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-function Card(name, img) {
+function Card(props) {
 
     const [flipped, set_flip] = useState(false);
 
-    const info = {
-        img: "insert img here",
-        name: "name",
-        type: "type"
-    };
+    // const info = {
+    //     img: "insert img here",
+    //     name: "name",
+    //     type: "type"
+    // };
 
     function click() {
         //flip card
@@ -25,10 +25,10 @@ function Card(name, img) {
     return (
         <div className="card_cont">
             <div className="card_front_imgback">
-                <img className="card_front_img" src={img} alt={name}></img>
+                <img className="card_front_img" src={props.img} alt={props.name}></img>
             </div>
 
-            <div className="card_front_name">{name}</div>
+            <div className="card_front_name">{props.name}</div>
         </div>
     )
 }

@@ -41,7 +41,7 @@ function App() {
           pokemons.map((element, index) => {
             console.log(typeof element.name);
             return (
-              <Card key={index} name={JSON.stringify(element["name"])} img={JSON.stringify(element["img"])} />
+              <Card name={element.name} img={element.img} />
             )
           })
         }
