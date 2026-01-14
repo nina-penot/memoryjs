@@ -4,12 +4,6 @@ function Card(props) {
 
     const [flipped, set_flip] = useState(false);
 
-    // const info = {
-    //     img: "insert img here",
-    //     name: "name",
-    //     type: "type"
-    // };
-
     const type_colors = {
         "fire": "linear-gradient(180deg,rgba(227, 43, 43, 1) 0%, rgba(237, 181, 83, 1) 100%)",
         "electric": "linear-gradient(180deg,rgb(216, 166, 27) 0%, rgb(255, 245, 112) 100%)",
@@ -34,7 +28,11 @@ function Card(props) {
     function click() {
         //flip card
         if (flipped == false) {
-            set_flip(flipped = true);
+            console.log("y")
+            set_flip(flipped == true);
+        } else {
+            console.log("n")
+            set_flip(flipped == false)
         }
     }
 
@@ -43,15 +41,24 @@ function Card(props) {
         //card flips back to show back
     }
 
-    return (
-        <div className="card_cont" style={{ background: type_colors[props.type in type_colors ? props.type : "normal"] }}>
-            <div className="card_front_imgback">
-                <img className="card_front_img" src={props.img} alt={props.name}></img>
-            </div>
+    if (flipped) {
+        console.log("flipped")
+        return (
+            <div onClick={click} className="card_cont" style={{ background: type_colors[props.type in type_colors ? props.type : "normal"] }}>
+                <div className="card_front_imgback">
+                    <img className="card_front_img" src={props.img} alt={props.name}></img>
+                </div>
 
-            <div className="card_front_name">{props.name}</div>
-        </div >
-    )
+                <div className="card_front_name">{props.name}</div>
+            </div >
+        )
+    } else {
+        console.log("unflip")
+        return (
+            <div onClick={click} className="card_cont"></div>
+        )
+    }
+
 }
 
 export default Card;
