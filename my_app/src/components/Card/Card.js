@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function Card(props) {
 
-    const [flipped, set_flip] = useState(false);
+    let [flipped, set_flip] = useState(true);
 
     const type_colors = {
         "fire": "linear-gradient(180deg,rgba(227, 43, 43, 1) 0%, rgba(237, 181, 83, 1) 100%)",
@@ -27,12 +27,12 @@ function Card(props) {
 
     function click() {
         //flip card
-        if (flipped == false) {
+        if (flipped === false) {
             console.log("y")
-            set_flip(flipped == true);
-        } else {
+            set_flip(flipped = true);
+        } else if (flipped === true) {
             console.log("n")
-            set_flip(flipped == false)
+            set_flip(flipped = false)
         }
     }
 
@@ -42,7 +42,6 @@ function Card(props) {
     }
 
     if (flipped) {
-        console.log("flipped")
         return (
             <div onClick={click} className="card_cont" style={{ background: type_colors[props.type in type_colors ? props.type : "normal"] }}>
                 <div className="card_front_imgback">
@@ -53,7 +52,6 @@ function Card(props) {
             </div >
         )
     } else {
-        console.log("unflip")
         return (
             <div onClick={click} className="card_cont"></div>
         )
