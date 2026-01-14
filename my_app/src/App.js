@@ -39,9 +39,9 @@ function App() {
       <section>
         {
           pokemons.map((element, index) => {
-            console.log(typeof element.name);
+            // console.log(typeof element.name);
             return (
-              <Card name={element.name} img={element.img} />
+              <Card key={index} name={element.name} img={element.img} type={element.type} />
             )
           })
         }
