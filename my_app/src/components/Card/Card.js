@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Card(props) {
+function Card(name, img) {
 
     const [flipped, set_flip] = useState(false);
 
@@ -25,10 +25,10 @@ function Card(props) {
     return (
         <div className="card_cont">
             <div className="card_front_imgback">
-                <img className="card_front_img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"></img>
+                <img className="card_front_img" src={img} alt={name}></img>
             </div>
 
-            <div className="card_front_name">Name here</div>
+            <div className="card_front_name">{name}</div>
         </div>
     )
 }

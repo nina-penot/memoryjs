@@ -4,6 +4,8 @@ import './assets/css/mycss.css'
 import Button from './components/Button/Button';
 import Score from './components/Score/Score';
 import Card from './components/Card/Card';
+// let pokemons = require('./data/pokemons.json');
+import pokemons from './data/pokemons.json'
 // import FetchData from './data/pokemons'
 
 // function App() {
@@ -28,13 +30,22 @@ import Card from './components/Card/Card';
 // }
 
 function App() {
-  // console.log(pokemon)
+  //console.log(pokemons);
   return (
     <div className='App'>
       <Button text="bonjour." class="red btn" />
       <Button text="blue" class="blue btn" />
       <Score class="green" />
-      <Card />
+      <section>
+        {
+          pokemons.map((element, index) => {
+            console.log(typeof element.name);
+            return (
+              <Card key={index} name={JSON.stringify(element["name"])} img={JSON.stringify(element["img"])} />
+            )
+          })
+        }
+      </section>
     </div>
   )
 }
