@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 function Card(props) {
 
-    let [flipped, set_flip] = useState(true);
+    let [flipped, set_flip] = useState(false);
+    let [won_status, set_status] = useState(false);
+    let [waiting, set_wait] = useState(false);
 
     const type_colors = {
         "fire": "linear-gradient(180deg,rgba(227, 43, 43, 1) 0%, rgba(237, 181, 83, 1) 100%)",
@@ -28,17 +30,21 @@ function Card(props) {
     function click() {
         //flip card
         if (flipped === false) {
-            console.log("y")
             set_flip(flipped = true);
         } else if (flipped === true) {
-            console.log("n")
             set_flip(flipped = false)
         }
+        //flip_back();
     }
 
     function flip_back() {
         //if flipped true and not win....
         //card flips back to show back
+        if (flipped === true && won_status === false) {
+            setTimeout(() => {
+                set_flip(flipped = false);
+            }, 1000)
+        }
     }
 
     if (flipped) {

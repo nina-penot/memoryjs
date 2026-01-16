@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import pokemons from '../../data/pokemons.json';
 import Card from "../Card/Card";
 
-function Board({ difficulty }, props) {
+function Board({ difficulty, cards }, props) {
     //must select num of cards at random depending on a difficulty setting
     difficulty = 6;
 

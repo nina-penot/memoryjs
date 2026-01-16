@@ -7,6 +7,7 @@ import Card from './components/Card/Card';
 import Board from './components/Board/Board';
 // let pokemons = require('./data/pokemons.json');
 import pokemons from './data/pokemons.json'
+import Form_Difficulty from './components/Form_Difficulty/Form_Difficulty';
 // import FetchData from './data/pokemons'
 
 // function App() {
@@ -34,9 +35,11 @@ function App() {
   //console.log(pokemons);
   return (
     <div className='App'>
-      <Button text="bonjour." class="red btn" />
+
+      {/* <Button text="bonjour." class="red btn" />
       <Button text="blue" class="blue btn" />
-      <Score class="green" />
+      <Score class="green" /> */}
+      <Form_Difficulty />
       <Board />
       <section>
         {
