@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Card(props) {
+function Card({ key, name, img, type, isflipped, iswon }) {
 
     let [flipped, set_flip] = useState(false);
     let [won_status, set_status] = useState(false);
@@ -49,12 +49,12 @@ function Card(props) {
 
     if (flipped) {
         return (
-            <div onClick={click} className="card_cont" style={{ background: type_colors[props.type in type_colors ? props.type : "normal"] }}>
+            <div onClick={click} className="card_cont" style={{ background: type_colors[type in type_colors ? type : "normal"] }}>
                 <div className="card_front_imgback">
-                    <img className="card_front_img" src={props.img} alt={props.name}></img>
+                    <img className="card_front_img" src={img} alt={name}></img>
                 </div>
 
-                <div className="card_front_name">{props.name}</div>
+                <div className="card_front_name">{name}</div>
             </div >
         )
     } else {

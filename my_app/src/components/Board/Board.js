@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import pokemons from '../../data/pokemons.json';
 import Card from "../Card/Card";
-import { createElement } from 'react';
+import { createElement, useContext, createContext } from 'react';
 
 function Board({ difficulty }) {
     //must select num of cards at random depending on a difficulty setting
     //difficulty = 6;
+    const card_context = useContext(Card);
+    console.log(card_context);
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * (max + 1));
@@ -95,6 +97,8 @@ function Board({ difficulty }) {
         //if true: score+1, keep cards revealed
         //if false: flip cards
     }
+
+
 
     return (
         createElement("section", {}, rowgroup_all)
