@@ -1,5 +1,6 @@
 import pokemons from '../../data/pokemons.json';
 import { createElement } from 'react';
+import Board from '../Board/Board';
 
 function Form_Difficulty() {
     //Select form
@@ -33,7 +34,7 @@ function Form_Difficulty() {
         let options = [];
 
         for (let a = prev; a < i; a++) {
-            console.log(a);
+            // console.log(a);
             let option = createElement("option", { name: a, value: a }, a + " paires (" + a * 2 + " cartes)");
             options.push(option);
         }
@@ -47,9 +48,20 @@ function Form_Difficulty() {
 
     let select_elem = createElement("select", {}, groups);
     let title = createElement("div", {}, "Difficulté :")
+    let submit_btn = createElement("button", { type: "submit" }, "Commencer");
+
+    function spawn_board(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        console.log(form[0].value);
+        return (
+            <Board difficulty={form[0].value} />
+        );
+    }
 
     return (
-        createElement("form", {}, [title, select_elem])
+        createElement("form", { onSubmit: spawn_board }, [title, select_elem, submit_btn])
     )
 
 }

@@ -40,7 +40,7 @@ function App() {
       <Button text="blue" class="blue btn" />
       <Score class="green" /> */}
       <Form_Difficulty />
-      <Board />
+      <Board difficulty={4} />
       {/* <section>
         {
           pokemons.map((element, index) => {

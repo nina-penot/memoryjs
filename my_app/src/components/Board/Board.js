@@ -3,9 +3,9 @@ import pokemons from '../../data/pokemons.json';
 import Card from "../Card/Card";
 import { createElement } from 'react';
 
-function Board({ difficulty, cards }, props) {
+function Board({ difficulty }) {
     //must select num of cards at random depending on a difficulty setting
-    difficulty = 6;
+    //difficulty = 6;
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * (max + 1));
