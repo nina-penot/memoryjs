@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import pokemons from '../../data/pokemons.json';
 import Card from "../Card/Card";
+import { createElement } from 'react';
 
 function Board({ difficulty, cards }, props) {
     //must select num of cards at random depending on a difficulty setting
@@ -20,7 +21,7 @@ function Board({ difficulty, cards }, props) {
         random_index_list.push(rand_num);
     }
 
-    console.log(random_index_list);
+    //console.log(random_index_list);
 
     let selected_cards = [];
 
@@ -50,9 +51,6 @@ function Board({ difficulty, cards }, props) {
 
     //make the board with num of cards per row depending on amount of total cards
     function cards_per_row(num) {
-        if (num % 6 == 0) {
-            return 6;
-        }
         if (num % 5 == 0) {
             return 5;
         }
@@ -66,6 +64,29 @@ function Board({ difficulty, cards }, props) {
     }
 
     let row_num = cards_per_row(selected_cards.length);
+
+    let count = 1;
+    let rowgroup_all = [];
+    let rowgroup = [];
+
+    for (let c = 0; c < selected_cards.length; c++) {
+        console.log(rowgroup)
+        //<Card key={index} name={element.name} img={element.img} type={element.type} />
+        let mycard = createElement(Card, {
+            key: selected_cards[c],
+            name: selected_cards[c].name,
+            img: selected_cards[c].img,
+            type: selected_cards[c].type
+        });
+        rowgroup.push(mycard);
+
+        if (c == (row_num * count) - 1) {
+            let floatdiv = createElement("div", { className: "board_row" }, rowgroup);
+            rowgroup = [];
+            rowgroup_all.push(floatdiv);
+            count++;
+        }
+    }
     //check for a win everytime 2 cards are revealed
 
     function check_pair(allcards) {
@@ -75,9 +96,9 @@ function Board({ difficulty, cards }, props) {
         //if false: flip cards
     }
 
-    // return (
-    //     <Card key={index} name={element.name} img={element.img} type={element.type} />
-    // )
+    return (
+        createElement("section", {}, rowgroup_all)
+    )
 }
 
 export default Board;

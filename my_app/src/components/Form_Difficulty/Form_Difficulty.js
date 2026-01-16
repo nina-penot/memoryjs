@@ -7,7 +7,6 @@ function Form_Difficulty() {
     const pair_amount_max = pokemons.length;
     //Divide in difficulty groups
     //pair min: 3
-    const min_difficulty = 3;
     const difficulty_groups = {
         6: "Facile",
         10: "Moyen",
@@ -35,7 +34,7 @@ function Form_Difficulty() {
 
         for (let a = prev; a < i; a++) {
             console.log(a);
-            let option = createElement("option", { name: a, value: a }, a);
+            let option = createElement("option", { name: a, value: a }, a + " paires (" + a * 2 + " cartes)");
             options.push(option);
         }
 

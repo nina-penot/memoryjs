@@ -41,7 +41,7 @@ function App() {
       <Score class="green" /> */}
       <Form_Difficulty />
       <Board />
-      <section>
+      {/* <section>
         {
           pokemons.map((element, index) => {
             // console.log(typeof element.name);
@@ -50,7 +50,7 @@ function App() {
             )
           })
         }
-      </section>
+      </section> */}
     </div>
   )
 }
