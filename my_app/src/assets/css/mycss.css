@@ -33,6 +33,13 @@
     background-color: rgb(40, 254, 79);
 }
 
+/* BOARD */
+
+.board_row {
+    display: flex;
+    float: left;
+}
+
 /* CARD */
 
 .card_cont {
@@ -52,6 +59,7 @@
     /* margin-top: 10px; */
     /* background-color: bisque; */
     justify-self: center;
+    margin: auto;
 }
 
 .card_front_imgback {
@@ -61,6 +69,8 @@
     height: calc(var(--card_width) - 20px);
     justify-self: center;
     margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card_front_name {
@@ -71,5 +81,5 @@
     font-size: 20px;
     text-align: center;
     align-content: center;
-    margin: 20px 0 auto 0;
+    margin: 20px auto auto auto;
 }
