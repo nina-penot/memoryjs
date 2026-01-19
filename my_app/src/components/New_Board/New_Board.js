@@ -24,6 +24,18 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
         "steel": "linear-gradient(180deg,rgb(68, 69, 71) 0%, rgb(158, 152, 149) 100%)"
     }
 
+    if (isflipped && iswon) {
+        return (
+            <div key={key} className="card_cont" style={{ background: type_colors[type in type_colors ? type : "normal"] }}>
+                <div className="card_front_imgback">
+                    <img className="card_front_img" src={img} alt={name}></img>
+                </div>
+
+                <div className="card_front_name">{name}</div>
+            </div >
+        )
+    }
+
     if (isflipped) {
         return (
             <div key={key} onClick={onCardClick} className="card_cont" style={{ background: type_colors[type in type_colors ? type : "normal"] }}>
@@ -43,6 +55,10 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
 }
 
 function Board({ mycards }) {
+
+    //let [flipped, setflip] = useState(false);
+    let [allcards, edit_cards] = useState(mycards);
+
     //form grid
     //make the board with num of cards per row depending on amount of total cards
     function cards_per_row(num) {
@@ -61,40 +77,60 @@ function Board({ mycards }) {
     let row_num = cards_per_row(mycards.length);
 
     function handleClick(num) {
-        console.log(mycards[num])
-        if (!mycards[num].isflipped) {
-            mycards[num].isflipped = true;
+        console.log(allcards[num])
+        if (!allcards[num].isflipped) {
+            edit_cards(allcards[num].isflipped = true);
+            console.log(allcards);
         } else {
-            mycards[num].isflipped = false;
+            edit_cards(allcards[num].isflipped = false);
         }
-        console.log("new card values:", mycards[num]);
+        //console.log("new card values:", mycards[num]);
+
+        check_pair();
     }
 
     //check for a win everytime 2 cards are revealed
     function check_pair() {
         //if 2 cards revealed
+        let revealed_amt = [];
+        for (let i in allcards) {
+            if (allcards[i].isflipped) {
+                revealed_amt.push(allcards[i]);
+            }
+            if (revealed_amt.length == 2) {
+                break;
+            }
+        }
+        console.log("pair detected!");
+
         //check if equal
         //if true: score+1, keep cards revealed
         //if false: flip cards
     }
 
-    const card_map = mycards.map((card, index) => {
-        if (card.isflipped) {
-            return (
-                <Card key={card.key} name={card.name}
-                    type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={true} iswaiting9={card.iswaiting}
-                    iswon={card.iswon} />
-            )
+    // const card_map = mycards.map((card, index) => {
+    //     if (card.isflipped) {
+    //         return (
+    //             <Card key={card.key} name={card.name}
+    //                 type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={true} iswaiting9={card.iswaiting}
+    //                 iswon={card.iswon} />
+    //         )
 
-        } else {
-            return (
-                <Card key={card.key} name={card.name}
-                    type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={false} iswaiting9={card.iswaiting}
-                    iswon={card.iswon} />
-            )
-        }
+    //     } else {
+    //         return (
+    //             <Card key={card.key} name={card.name}
+    //                 type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={false} iswaiting9={card.iswaiting}
+    //                 iswon={card.iswon} />
+    //         )
+    //     }
 
-    });
+    // });
+
+    const card_map = allcards.map((card, index) =>
+        <Card key={index} name={card.name}
+            type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={card.isflipped}
+            iswaiting={card.iswaiting} iswon={card.iswon} />
+    );
 
     // const card_map = mycards.map((card, index) => {
     //     console.log(card, "myindex: " + index);
@@ -109,7 +145,7 @@ function Board({ mycards }) {
 
 export default function New_Board({ difficulty }) {
 
-    let [flipped, setflip] = useState(false);
+    //let [flipped, setflip] = useState(false);
 
     if (difficulty == 0) {
         difficulty = 3;
@@ -150,11 +186,10 @@ export default function New_Board({ difficulty }) {
     //multiply each by 2 (to make pairs) and have them in an array
     for (let i = 0; i < random_index_list.length; i++) {
         let card = {
-            key: pokemons[random_index_list[i]].id,
             name: pokemons[random_index_list[i]].name,
             type: pokemons[random_index_list[i]].type,
             img: pokemons[random_index_list[i]].img,
-            isflipped: flipped,
+            isflipped: false,
             iswaiting: false,
             iswon: false,
         };

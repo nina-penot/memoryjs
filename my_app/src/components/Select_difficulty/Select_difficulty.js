@@ -50,16 +50,6 @@ function Select_Difficulty() {
     let title = createElement("div", {}, "Difficulté :")
     let submit_btn = createElement("button", { type: "submit" }, "Commencer");
 
-    function spawn_board(e) {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        console.log(form[0].value);
-        return (
-            <Board difficulty={form[0].value} />
-        );
-    }
-
     return (
         createElement("select", {}, groups)
     )
