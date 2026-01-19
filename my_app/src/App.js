@@ -2,14 +2,15 @@ import logo from './logo.svg';
 import React, { useState } from "react";
 import './App.css';
 import './assets/css/mycss.css'
-import Button from './components/Button/Button';
-import Score from './components/Score/Score';
-import Card from './components/Card/Card';
-import Board from './components/Board/Board';
+//import Button from './components/Button/Button';
+//import Score from './components/Score/Score';
+//import Card from './components/Card/Card';
+//import Board from './components/Board/Board';
 // let pokemons = require('./data/pokemons.json');
-import pokemons from './data/pokemons.json'
+//import pokemons from './data/pokemons.json'
 import Form_Difficulty from './components/Form_Difficulty/Form_Difficulty';
 import Select_Difficulty from './components/Select_difficulty/Select_difficulty';
+import New_Board from './components/New_Board/New_Board';
 // import FetchData from './data/pokemons'
 
 // function App() {
@@ -41,7 +42,7 @@ function App() {
   function submit_diff(e) {
     e.preventDefault();
     const form = e.target;
-    console.log(form[0].value);
+    //console.log(form[0].value);
 
     diff_set(board_difficulty = parseInt(form[0].value));
     formsent_set(formsent = true);
@@ -62,12 +63,18 @@ function App() {
       </form>
     )
   } else {
+    // return (
+    //   <div>
+    //     <Board difficulty={board_difficulty} />
+    //     <button onClick={restart}> Restart </button>
+    //   </div>
+
+    // )
     return (
       <div>
-        <Board difficulty={board_difficulty} />
+        <New_Board difficulty={board_difficulty} />
         <button onClick={restart}> Restart </button>
       </div>
-
     )
   }
   return (

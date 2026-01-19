@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import pokemons from '../../data/pokemons.json';
 import Card from "../Card/Card";
-import { createElement, useContext, createContext } from 'react';
+import { createElement } from 'react';
 
 function Board({ difficulty }) {
+
     //must select num of cards at random depending on a difficulty setting
     //difficulty = 6;
-    const card_context = useContext(Card);
-    console.log(card_context);
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * (max + 1));
@@ -69,18 +68,23 @@ function Board({ difficulty }) {
 
     let count = 1;
     let rowgroup_all = [];
+    let card_deck = [];
     let rowgroup = [];
 
     for (let c = 0; c < selected_cards.length; c++) {
-        console.log(rowgroup)
+        //console.log(rowgroup)
         //<Card key={index} name={element.name} img={element.img} type={element.type} />
         let mycard = createElement(Card, {
-            key: selected_cards[c],
+            key: c,
             name: selected_cards[c].name,
             img: selected_cards[c].img,
-            type: selected_cards[c].type
+            type: selected_cards[c].type,
+            isflipped: false,
+            iswon: false,
+            iswaiting: false,
         });
         rowgroup.push(mycard);
+        card_deck.push(mycard);
 
         if (c == (row_num * count) - 1) {
             let floatdiv = createElement("div", { className: "board_row" }, rowgroup);
@@ -91,15 +95,19 @@ function Board({ difficulty }) {
     }
     //check for a win everytime 2 cards are revealed
 
-    function check_pair(allcards) {
+    function check_pair() {
         //if 2 cards revealed
         //check if equal
         //if true: score+1, keep cards revealed
         //if false: flip cards
+        for (let c in card_deck) {
+            if (card_deck[c].props.isflipped === true) {
+                console.log(card_deck[c]);
+            }
+        }
     }
 
-
-
+    console.log(card_deck);
     return (
         createElement("section", {}, rowgroup_all)
     )

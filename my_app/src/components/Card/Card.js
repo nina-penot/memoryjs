@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function Card({ key, name, img, type, isflipped, iswon }) {
+function Card({ key, name, img, type, isflipped = false, iswon = false, iswaiting = false }) {
 
-    let [flipped, set_flip] = useState(false);
-    let [won_status, set_status] = useState(false);
-    let [waiting, set_wait] = useState(false);
+    let [flipped, set_flip] = useState(isflipped);
+    let [won_status, set_win] = useState(iswon);
+    let [waiting, set_wait] = useState(iswaiting);
 
     const type_colors = {
         "fire": "linear-gradient(180deg,rgba(227, 43, 43, 1) 0%, rgba(237, 181, 83, 1) 100%)",
@@ -31,8 +31,10 @@ function Card({ key, name, img, type, isflipped, iswon }) {
         //flip card
         if (flipped === false) {
             set_flip(flipped = true);
+            isflipped = true;
         } else if (flipped === true) {
-            set_flip(flipped = false)
+            set_flip(flipped = false);
+            isflipped = true;
         }
         //flip_back();
     }
@@ -47,9 +49,41 @@ function Card({ key, name, img, type, isflipped, iswon }) {
         }
     }
 
-    if (flipped) {
+    function apply_win() {
+        if (flipped === true && won_status === true) {
+            set_win(won_status = true);
+        }
+    }
+
+    function apply_temporary_wait() {
+        if (waiting === false) {
+            set_wait(waiting = true);
+            setTimeout(() => {
+                set_flip(flipped = false)
+                set_wait(waiting = false);
+            }, 1000)
+        }
+    }
+
+    function apply_wait() {
+        if (waiting === false) {
+            set_wait(waiting = true);
+        }
+    }
+
+    if (flipped && !won_status && !waiting) {
         return (
             <div onClick={click} className="card_cont" style={{ background: type_colors[type in type_colors ? type : "normal"] }}>
+                <div className="card_front_imgback">
+                    <img className="card_front_img" src={img} alt={name}></img>
+                </div>
+
+                <div className="card_front_name">{name}</div>
+            </div >
+        )
+    } else if (flipped && won_status) {
+        return (
+            <div className="card_cont" style={{ background: type_colors[type in type_colors ? type : "normal"] }}>
                 <div className="card_front_imgback">
                     <img className="card_front_img" src={img} alt={name}></img>
                 </div>
