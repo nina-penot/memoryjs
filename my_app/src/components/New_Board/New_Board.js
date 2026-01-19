@@ -77,55 +77,63 @@ function Board({ mycards }) {
     let row_num = cards_per_row(mycards.length);
 
     function handleClick(num) {
-        console.log(allcards[num])
-        if (!allcards[num].isflipped) {
-            edit_cards(allcards[num].isflipped = true);
-            console.log(allcards);
-        } else {
-            edit_cards(allcards[num].isflipped = false);
-        }
-        //console.log("new card values:", mycards[num]);
+        //to add:
+        //arrow func somewhere??
+        const nextCard = allcards.map((card, index) => {
+            if (index === num) {
+                if (!card.isflipped) {
+                    return {
+                        ...card,
+                        isflipped: true,
+                    }
+                } else {
+                    return {
+                        ...card,
+                        isflipped: false,
+                    }
+                }
 
-        check_pair();
+            } else {
+                return card;
+            }
+        })
+
+        edit_cards(nextCard);
+
+        check_pair(nextCard);
     }
 
     //check for a win everytime 2 cards are revealed
-    function check_pair() {
+    function check_pair(cards) {
         //if 2 cards revealed
         let revealed_amt = [];
-        for (let i in allcards) {
-            if (allcards[i].isflipped) {
-                revealed_amt.push(allcards[i]);
+        console.log(revealed_amt);
+        for (let i in cards) {
+            if (cards[i].isflipped) {
+                revealed_amt.push(cards[i]);
             }
             if (revealed_amt.length == 2) {
-                break;
+                //return true;
+                console.log("2 cards flipped...");
+                if (revealed_amt[0].name === revealed_amt[1].name) {
+                    console.log("WON");
+                } else {
+                    console.log("lost...");
+                    // setTimeout(() => {
+
+                    // }, 1000)
+                }
             }
         }
-        console.log("pair detected!");
-
-        //check if equal
-        //if true: score+1, keep cards revealed
-        //if false: flip cards
     }
 
-    // const card_map = mycards.map((card, index) => {
-    //     if (card.isflipped) {
-    //         return (
-    //             <Card key={card.key} name={card.name}
-    //                 type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={true} iswaiting9={card.iswaiting}
-    //                 iswon={card.iswon} />
-    //         )
+    function check_win() {
+        //check the two revealed cards
+        //if same, mark as won
+        //else, flip back
+    }
 
-    //     } else {
-    //         return (
-    //             <Card key={card.key} name={card.name}
-    //                 type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={false} iswaiting9={card.iswaiting}
-    //                 iswon={card.iswon} />
-    //         )
-    //     }
-
-    // });
-
+    console.log("allcards state", allcards);
     const card_map = allcards.map((card, index) =>
         <Card key={index} name={card.name}
             type={card.type} img={card.img} onCardClick={() => handleClick(index)} isflipped={card.isflipped}
@@ -186,6 +194,7 @@ export default function New_Board({ difficulty }) {
     //multiply each by 2 (to make pairs) and have them in an array
     for (let i = 0; i < random_index_list.length; i++) {
         let card = {
+            key: i,
             name: pokemons[random_index_list[i]].name,
             type: pokemons[random_index_list[i]].type,
             img: pokemons[random_index_list[i]].img,
@@ -194,7 +203,16 @@ export default function New_Board({ difficulty }) {
             iswon: false,
         };
         selected_cards.push(card);
-        selected_cards.push(card);
+        let card2 = {
+            key: i + random_index_list.length,
+            name: pokemons[random_index_list[i]].name,
+            type: pokemons[random_index_list[i]].type,
+            img: pokemons[random_index_list[i]].img,
+            isflipped: false,
+            iswaiting: false,
+            iswon: false,
+        };
+        selected_cards.push(card2);
     }
 
     //mix up the cards
