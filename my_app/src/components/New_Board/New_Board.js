@@ -57,6 +57,7 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
 function reducer(state, action) {
     switch (action.type) {
         case 'flip_single_card': {
+            const mycard = action.payload;
             return {
                 isflipped: true,
             }
@@ -72,6 +73,12 @@ function reducer(state, action) {
                 iswaiting: true,
             }
         }
+        case 'unwait_all': {
+            return {
+                ...state,
+                iswaiting: false,
+            }
+        }
     }
     throw Error("unknown action: " + action.type);
 }
@@ -80,10 +87,7 @@ function Board({ mycards }) {
 
     let [allcards, edit_cards] = useState(mycards);
     let [revealed, handle_reveal] = useState([]);
-    let [totalcards, dispatch] = useReducer(
-        reducer,
-        mycards
-    )
+    let [totalcards, dispatch] = useReducer(reducer, mycards);
 
     //form grid
     //make the board with num of cards per row depending on amount of total cards
@@ -195,6 +199,14 @@ function Board({ mycards }) {
         //to add:
         //arrow func somewhere??
         update_cards(num);
+        dispatch({
+            type: 'wait_all'
+        })
+        console.log("reducer test1", totalcards);
+        dispatch({
+            type: 'unwait_all'
+        })
+        console.log("reducer test2", totalcards);
         //console.log("update check", allcards);
 
         //check if 2 cards revealed
