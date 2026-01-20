@@ -1,20 +1,13 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 
-function Score(props) {
+function Score({ points }) {
 
-    const [score, setScore] = useState(0);
-
-    function click() {
-        if (score < 15) {
-            setScore(score + 1);
-        }
-    }
+    //const [score, setScore] = useState(0);
 
     return (
-        <>
-            <p> Mon score est de {score} .</p>
-            <button className={"btn " + props.class} onClick={click}>Click pour + score</button >
-        </>
+        <div>
+            <p> Score: {points} .</p>
+        </div>
     )
 
 }
