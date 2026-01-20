@@ -54,40 +54,11 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
 
 }
 
-function reducer(state, action) {
-    switch (action.type) {
-        case 'flip_single_card': {
-            const mycard = action.payload;
-            return {
-                isflipped: true,
-            }
-        }
-        case 'wait_single_card': {
-            return {
-                iswaiting: true,
-            }
-        }
-        case 'wait_all': {
-            return {
-                ...state,
-                iswaiting: true,
-            }
-        }
-        case 'unwait_all': {
-            return {
-                ...state,
-                iswaiting: false,
-            }
-        }
-    }
-    throw Error("unknown action: " + action.type);
-}
 
 function Board({ mycards }) {
 
     let [allcards, edit_cards] = useState(mycards);
     let [revealed, handle_reveal] = useState([]);
-    let [totalcards, dispatch] = useReducer(reducer, mycards);
 
     //form grid
     //make the board with num of cards per row depending on amount of total cards
@@ -106,177 +77,10 @@ function Board({ mycards }) {
 
     let row_num = cards_per_row(mycards.length);
 
-    function update_cards(num) {
-        const nextCard = allcards.map((card, index) => {
-            if (index === num) {
-                if (!card.isflipped) {
-                    return {
-                        ...card,
-                        isflipped: true,
-                    }
-                } else {
-                    return card;
-                }
-
-            } else {
-                return card;
-            }
-        })
-
-        edit_cards(nextCard);
-        // console.log("nextCard", nextCard);
-    }
-
-    function backflip(num_array) {
-        const nextCard = allcards.map((card, index) => {
-            if (num_array.includes(index)) {
-                if (card.isflipped) {
-                    return {
-                        ...card,
-                        isflipped: false,
-                    }
-                } else {
-                    return card;
-                }
-
-            } else {
-                return card;
-            }
-        })
-
-        edit_cards(nextCard);
-    }
-
-    // function mark_all_wait(cards) {
-    //     const nextCard = cards.map((card, index) => {
-    //         return {
-    //             ...card,
-    //             iswaiting: true,
-    //         }
-    //     })
-
-    //     //console.log("mark all wait:", nextCard);
-    //     // edit_cards(nextCard);
-    //     return nextCard;
-    // }
-
-    function mark_all_wait(cards) {
-
-        edit_cards(
-            prev => {
-                let newstate = [...prev];
-                for (let a in newstate) {
-                    newstate[a].iswaiting = true;
-                }
-                return newstate;
-            }
-        )
-
-    }
-
-    function mark_card_win(num_array) {
-        const nextCard = allcards.map((card, index) => {
-            if (num_array.includes(index)) {
-                if (!card.iswon) {
-                    return {
-                        ...card,
-                        iswon: true,
-                    }
-                } else {
-                    return card;
-                }
-
-            } else {
-                return card;
-            }
-        })
-
-        edit_cards(nextCard);
-    }
-
-
     function handleClick(num) {
-        //to add:
-        //arrow func somewhere??
-        update_cards(num);
-        dispatch({
-            type: 'wait_all'
-        })
-        console.log("reducer test1", totalcards);
-        dispatch({
-            type: 'unwait_all'
-        })
-        console.log("reducer test2", totalcards);
-        //console.log("update check", allcards);
-
-        //check if 2 cards revealed
-        let rev = check_pair(allcards)
-        if (rev != false) {
-            edit_cards(
-                prev => {
-                    let newstate = [...prev];
-                    for (let a in newstate) {
-                        newstate[a].iswaiting = true;
-                    }
-                    return newstate;
-                }
-            );
-            //check if it's a win
-            if (check_win(rev[0], rev[1])) {
-                console.log("win");
-            } else {
-                console.log("lose");
-            }
-        }
+        //
     }
 
-    //check for a win everytime 2 cards are revealed
-    function check_pair(cards) {
-        //console.log("checkpair cards:", cards);
-        //if 2 cards revealed
-        let revealed_amt = [];
-        for (let i in cards) {
-            //console.log("loop", cards[i]);
-            if (cards[i].isflipped && !cards[i].iswon) {
-                //console.log("found flip");
-                revealed_amt.push(cards[i]);
-            }
-        }
-
-
-        if (revealed_amt.length == 2) {
-            return revealed_amt;
-        } else {
-            return false;
-        }
-        // for (let i in cards) {
-        //     console.log("looping", cards[i]);
-        //     if (cards[i].isflipped) {
-        //         console.log("checkpair:", cards[i]);
-        //         revealed_amt.push(cards[i]);
-        //         //console.log("revealedamt", revealed_amt);
-        //     }
-
-        //     if (revealed_amt.length == 2) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // }
-    }
-
-    function check_win(card1, card2) {
-        //check the two revealed cards
-        if (card1.name === card2.name) {
-            return true;
-        } else {
-            return false;
-        }
-        //if same, mark as won
-        //else, flip back
-    }
-
-    //console.log("allcards state", allcards);
     const card_map = allcards.map((card, index) =>
 
         <Card key={index} name={card.name}
@@ -295,7 +99,7 @@ function Board({ mycards }) {
 
     )
 
-    const pair_detect = <div>Pair detected? {check_pair(allcards) ? "yes" : "no"}</div>
+    // const pair_detect = <div>Pair detected? {check_pair(allcards) ? "yes" : "no"}</div>
 
     // const card_map = mycards.map((card, index) => {
     //     console.log(card, "myindex: " + index);
@@ -307,7 +111,7 @@ function Board({ mycards }) {
                 {card_map}
             </section>
             <section>
-                {pair_detect}
+                {/* {pair_detect} */}
                 {game_state}
             </section>
         </>
