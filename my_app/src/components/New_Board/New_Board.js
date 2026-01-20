@@ -161,6 +161,7 @@ function Board({ mycards }) {
                     console.log("win");
                     //if win, mark the cards as won
                     cardUpdater = mark_winners(cardUpdater, reveal);
+                    setAllCards(prev => cardUpdater);
                 } else {
                     console.log("lose");
                     //reset the cards
