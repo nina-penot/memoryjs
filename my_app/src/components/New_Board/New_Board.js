@@ -57,8 +57,8 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
 
 function Board({ mycards }) {
 
-    let [allcards, edit_cards] = useState(mycards);
-    let [revealed, handle_reveal] = useState([]);
+    let [allcards, setAllCards] = useState(mycards);
+    let [revealed, setRevealed] = useState([]);
 
     //form grid
     //make the board with num of cards per row depending on amount of total cards
@@ -77,8 +77,97 @@ function Board({ mycards }) {
 
     let row_num = cards_per_row(mycards.length);
 
+    function flip_card(num) {
+        const nextCard = allcards.map((card, index) => {
+            if (index === num) {
+                if (!card.isflipped) {
+                    return {
+                        ...card,
+                        isflipped: true,
+                    }
+                } else {
+                    return card;
+                }
+
+            } else {
+                return card;
+            }
+        })
+
+        return nextCard;
+    }
+
+    function check_pair(cards) {
+        let rev = [];
+        for (let i in cards) {
+            if (cards[i].isflipped) {
+                rev.push(cards[i]);
+            }
+        }
+        if (rev.length == 2) {
+            return rev;
+        } else {
+            return false;
+        }
+    }
+
+    function check_win(card1, card2) {
+        if (card1.name === card2.name) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function make_all_wait(cards) {
+        const nextCard = cards.map((card, index) => {
+            return {
+                ...card,
+                iswaiting: true,
+            }
+        })
+
+        return nextCard;
+    }
+
+    function mark_winners(cards, winningcards) {
+        const nextCard = cards.map((card, index) => {
+            if (winningcards[0].key === card.key || winningcards[1].key === card.key) {
+                return {
+                    ...card,
+                    iswon: true
+                }
+            } else {
+                return card;
+            }
+        })
+
+        return nextCard;
+    }
+
     function handleClick(num) {
-        //
+
+        if (!allcards[num].iswaiting) {
+            let cardUpdater = flip_card(num);
+            setAllCards(cardUpdater);
+            let reveal = check_pair(cardUpdater);
+            if (reveal) {
+                console.log("pair get")
+                //mark all cards as waiting
+                cardUpdater = make_all_wait(cardUpdater);
+                setAllCards(prev => cardUpdater);
+                //check if win
+                if (check_win(reveal[0], reveal[1])) {
+                    console.log("win");
+                    //if win, mark the cards as won
+                    cardUpdater = mark_winners(cardUpdater, reveal);
+                } else {
+                    console.log("lose");
+                    //reset the cards
+                }
+            }
+        }
+
     }
 
     const card_map = allcards.map((card, index) =>
