@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import pokemons from '../../data/pokemons.json';
 
 function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }) {
@@ -54,30 +54,37 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
 
 }
 
-
+function reducer(state, action) {
+    switch (action.type) {
+        case 'flip_single_card': {
+            return {
+                isflipped: true,
+            }
+        }
+        case 'wait_single_card': {
+            return {
+                iswaiting: true,
+            }
+        }
+        case 'wait_all': {
+            return {
+                ...state,
+                iswaiting: true,
+            }
+        }
+    }
+    throw Error("unknown action: " + action.type);
+}
 
 function Board({ mycards }) {
 
     let [allcards, edit_cards] = useState(mycards);
     let [revealed, handle_reveal] = useState([]);
-    let [wincheck, toggleWincheck] = useState(null);
+    let [totalcards, dispatch] = useReducer(
+        reducer,
+        mycards
+    )
 
-    useEffect(() => {
-        //console.log("useEffect:", allcards);
-        let get_rev = check_pair(allcards);
-        if (get_rev) {
-            if (check_win(get_rev[0], get_rev[1])) {
-                console.log("win");
-            } else {
-                console.log("lose");
-            }
-        }
-        //console.log(check_pair(allcards));
-    }, [allcards]);
-
-    useEffect(() => {
-        //
-    }, [wincheck]);
     //form grid
     //make the board with num of cards per row depending on amount of total cards
     function cards_per_row(num) {
@@ -136,15 +143,31 @@ function Board({ mycards }) {
         edit_cards(nextCard);
     }
 
-    function mark_all_wait(num_array) {
-        const nextCard = allcards.map((card, index) => {
-            return {
-                ...card,
-                iswaiting: true,
-            }
-        })
+    // function mark_all_wait(cards) {
+    //     const nextCard = cards.map((card, index) => {
+    //         return {
+    //             ...card,
+    //             iswaiting: true,
+    //         }
+    //     })
 
-        edit_cards(nextCard);
+    //     //console.log("mark all wait:", nextCard);
+    //     // edit_cards(nextCard);
+    //     return nextCard;
+    // }
+
+    function mark_all_wait(cards) {
+
+        edit_cards(
+            prev => {
+                let newstate = [...prev];
+                for (let a in newstate) {
+                    newstate[a].iswaiting = true;
+                }
+                return newstate;
+            }
+        )
+
     }
 
     function mark_card_win(num_array) {
@@ -175,15 +198,24 @@ function Board({ mycards }) {
         //console.log("update check", allcards);
 
         //check if 2 cards revealed
-        // let rev = check_pair(allcards)
-        // if (rev) {
-        //     //check if it's a win
-        //     if (check_win(rev[0], rev[1])) {
-        //         console.log("win");
-        //     } else {
-        //         console.log("lose");
-        //     }
-        // }
+        let rev = check_pair(allcards)
+        if (rev != false) {
+            edit_cards(
+                prev => {
+                    let newstate = [...prev];
+                    for (let a in newstate) {
+                        newstate[a].iswaiting = true;
+                    }
+                    return newstate;
+                }
+            );
+            //check if it's a win
+            if (check_win(rev[0], rev[1])) {
+                console.log("win");
+            } else {
+                console.log("lose");
+            }
+        }
     }
 
     //check for a win everytime 2 cards are revealed
@@ -251,6 +283,8 @@ function Board({ mycards }) {
 
     )
 
+    const pair_detect = <div>Pair detected? {check_pair(allcards) ? "yes" : "no"}</div>
+
     // const card_map = mycards.map((card, index) => {
     //     console.log(card, "myindex: " + index);
     // });
@@ -261,6 +295,7 @@ function Board({ mycards }) {
                 {card_map}
             </section>
             <section>
+                {pair_detect}
                 {game_state}
             </section>
         </>
