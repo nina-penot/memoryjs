@@ -100,7 +100,7 @@ function Board({ mycards }) {
     function check_pair(cards) {
         let rev = [];
         for (let i in cards) {
-            if (cards[i].isflipped) {
+            if (cards[i].isflipped && !cards[i].iswon) {
                 rev.push(cards[i]);
             }
         }
@@ -125,6 +125,38 @@ function Board({ mycards }) {
                 ...card,
                 iswaiting: true,
             }
+        })
+
+        return nextCard;
+    }
+
+    function make_all_backflip(cards) {
+        const nextCard = cards.map((card, index) => {
+            if (!card.iswon) {
+                return {
+                    ...card,
+                    isflipped: false,
+                }
+            } else {
+                return card;
+            }
+
+        })
+
+        return nextCard;
+    }
+
+    function make_all_active(cards) {
+        const nextCard = cards.map((card, index) => {
+            if (!card.iswon) {
+                return {
+                    ...card,
+                    iswaiting: false,
+                }
+            } else {
+                return card;
+            }
+
         })
 
         return nextCard;
@@ -155,16 +187,23 @@ function Board({ mycards }) {
                 console.log("pair get")
                 //mark all cards as waiting
                 cardUpdater = make_all_wait(cardUpdater);
-                setAllCards(prev => cardUpdater);
+                setAllCards(cardUpdater);
                 //check if win
                 if (check_win(reveal[0], reveal[1])) {
                     console.log("win");
                     //if win, mark the cards as won
                     cardUpdater = mark_winners(cardUpdater, reveal);
-                    setAllCards(prev => cardUpdater);
+                    cardUpdater = make_all_active(cardUpdater);
+                    setAllCards(cardUpdater);
+                    reveal = [];
                 } else {
                     console.log("lose");
                     //reset the cards
+                    setTimeout(() => {
+                        cardUpdater = make_all_backflip(cardUpdater);
+                        cardUpdater = make_all_active(cardUpdater);
+                        setAllCards(cardUpdater);
+                    }, 1000)
                 }
             }
         }
