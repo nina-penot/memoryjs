@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import './App.css';
 import './assets/css/mycss.css'
 //import Button from './components/Button/Button';
@@ -38,6 +38,8 @@ function App() {
   //console.log(pokemons);
   let [formsent, formsent_set] = useState(false);
   let [board_difficulty, diff_set] = useState(null);
+  let [gameover, setGameOver] = useState(false);
+  const boardref = useRef(null);
 
   function submit_diff(e) {
     e.preventDefault();
@@ -55,6 +57,7 @@ function App() {
 
 
   if (formsent == false) {
+    //setGameOver(false);
     return (
       <form onSubmit={submit_diff}>
         <div>Difficulté : </div>
@@ -72,34 +75,11 @@ function App() {
     // )
     return (
       <div>
-        <New_Board difficulty={board_difficulty} />
+        <New_Board difficulty={board_difficulty} isGameOver={() => setGameOver(true)} />
         <button onClick={restart}> Restart </button>
       </div>
     )
   }
-  return (
-    <div className='App'>
-
-      {/* <Button text="bonjour." class="red btn" />
-      <Button text="blue" class="blue btn" />
-      <Score class="green" /> */}
-      <form onSubmit={submit_diff}>
-        <div>Difficulté : </div>
-        <Select_Difficulty />
-        <button type='submit'>Commencer</button>
-      </form>
-      {/* <section>
-        {
-          pokemons.map((element, index) => {
-            // console.log(typeof element.name);
-            return (
-              <Card key={index} name={element.name} img={element.img} type={element.type} />
-            )
-          })
-        }
-      </section> */}
-    </div>
-  )
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useRef } from "react";
 import pokemons from '../../data/pokemons.json';
 
 function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }) {
@@ -55,10 +55,17 @@ function Card({ key, name, img, type, onCardClick, isflipped, iswon, iswaiting }
 }
 
 
-function Board({ mycards }) {
+function Board({ mycards, onGameOver }) {
 
     let [allcards, setAllCards] = useState(mycards);
-    let [revealed, setRevealed] = useState([]);
+    let [gameover, setGameOver] = useState(false);
+
+    useEffect(() => {
+        if (gameover) {
+            onGameOver();
+        }
+
+    }, [gameover]);
 
     //form grid
     //make the board with num of cards per row depending on amount of total cards
@@ -177,6 +184,15 @@ function Board({ mycards }) {
         return nextCard;
     }
 
+    function check_game_over(cards) {
+        for (let w in cards) {
+            if (!cards[w].iswon) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function handleClick(num) {
 
         if (!allcards[num].iswaiting) {
@@ -204,6 +220,10 @@ function Board({ mycards }) {
                         cardUpdater = make_all_active(cardUpdater);
                         setAllCards(cardUpdater);
                     }, 1000)
+                }
+                if (check_game_over(cardUpdater)) {
+                    console.log("game is over!");
+                    setGameOver(gameover = true);
                 }
             }
         }
@@ -239,17 +259,20 @@ function Board({ mycards }) {
             <section className={"board_grid_" + row_num.toString()}>
                 {card_map}
             </section>
-            <section>
-                {/* {pair_detect} */}
-                {game_state}
-            </section>
         </>
     )
 }
 
-export default function New_Board({ difficulty }) {
+export default function New_Board({ difficulty, isGameOver }) {
 
-    //let [flipped, setflip] = useState(false);
+    let [gameover, setGameOver] = useState(false);
+
+    useEffect(() => {
+        if (gameover) {
+            isGameOver();
+        }
+
+    }, [gameover]);
 
     if (difficulty == 0) {
         difficulty = 3;
@@ -315,7 +338,17 @@ export default function New_Board({ difficulty }) {
     shuffle(selected_cards);
     //console.log(selected_cards);
 
-    return (
-        <Board mycards={selected_cards} />
-    )
+    if (gameover) {
+        return (
+            <>
+                <Board mycards={selected_cards} onGameOver={() => setGameOver(true)} />
+                <div>GAME IS OVER!!</div>
+            </>
+        )
+    } else {
+        return (
+            <Board mycards={selected_cards} onGameOver={() => setGameOver(true)} />
+        )
+    }
+
 }
